@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="카드 최적화">
+<meta name="theme-color" content="#f7f7f8">
+<title>카드 최적화 v3</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f7f8;color:#161719;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+.wrap{max-width:680px;margin:auto;padding:18px 16px 90px}.top{padding:4px 2px 16px}h1{font-size:24px;margin:0}.sub{font-size:13px;color:#777;margin-top:5px}
+.box{background:#fff;border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 1px 8px #0000000b}.hero{padding:18px}.label{font-size:13px;color:#777}.big{font-size:24px;font-weight:800;margin:5px 0 14px}
+input,select,button{font:inherit}input,select{width:100%;border:1px solid #dddfe3;border-radius:12px;padding:12px;background:#fff}button{border:0;border-radius:12px;padding:11px 14px;font-weight:700}.primary{background:#171719;color:white}.secondary{background:#eef0f2;color:#222}.full{width:100%;margin-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:#666}
+.rec{background:#eef3ff;border-radius:15px;padding:15px;margin-top:12px}.rec strong{font-size:21px}.small{font-size:12px;color:#777;line-height:1.5}.section-title{font-size:17px;font-weight:800;margin:22px 2px 8px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.chip{background:#f0f1f3;border-radius:999px;padding:8px 10px;font-size:12px}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dddfe2;display:flex;justify-content:center;z-index:10}.tab{flex:1;max-width:170px;background:white;border-radius:0;padding:10px 4px 9px;font-size:11px;color:#777}.tab.active{color:#111;font-weight:800}.tab .ico{display:block;font-size:18px;margin-bottom:2px}
+.cardrow{padding:13px 0;border-bottom:1px solid #eee}.cardrow:last-child{border-bottom:0}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.bar{height:8px;background:#eee;border-radius:9px;overflow:hidden;margin:9px 0 6px}.fill{height:100%;background:#171719}
+.fixed{padding:11px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:8px}.fixed:last-child{border:0}.danger{background:#fff0f0;color:#b22;padding:7px 9px;font-size:12px}
+.history{padding:0 16px}.history div{padding:12px 0;border-bottom:1px solid #eee;font-size:13px}.history div:last-child{border:0}
+.notice{font-size:11px;color:#92959a;text-align:center;line-height:1.5;margin:22px 4px}
+.hidden{display:none}
+@media(max-width:430px){.grid{grid-template-columns:1fr}.hero{padding:15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>💳 카드 최적화</h1>
+    <div class="sub">지금 결제할 때 가장 유리한 카드를 찾아줘</div>
+  </div>
+
+  <main id="payPage">
+    <div class="box hero">
+      <div class="label">지금 결제하기</div>
+      <div class="big">어디에서 결제해?</div>
+      <div class="field"><label>가맹점 / 장소</label><input id="merchant" placeholder="예: 스타벅스, 쿠팡, 병원, 학원" oninput="infer()"></div>
+      <div id="hint"></div>
+      <div class="grid" style="margin-top:9px">
+        <div class="field"><label>결제금액</label><input id="amount" type="number" inputmode="numeric" placeholder="35,000" oninput="recommend()"></div>
+        <div class="field"><label>결제유형</label><select id="cat" onchange="recommend()">
+          <option value="general">일반</option><option value="online">온라인</option><option value="restaurant">외식/카페</option><option value="academy">학원</option><option value="medical">병원</option><option value="management">관리비</option><option value="telecom">통신</option><option value="transport">교통</option><option value="shopping">쇼핑/생활</option>
+        </select></div>
+      </div>
+      <button class="primary full" onclick="recommend()">카드 추천받기</button>
+      <div id="rec"></div>
+    </div>
+  </main>
+
+  <main id="statusPage" class="hidden">
+    <div class="section-title">카드 현황</div>
+    <div class="box" id="cards"></div>
+  </main>
+
+  <main id="fixedPage" class="hidden">
+    <div class="section-title">고정비 관리</div>
+    <div class="box">
+      <div id="fixedList"></div>
+      <div class="grid" style="margin-top:12px">
+        <div class="field"><label>고정비 이름</label><input id="fn" placeholder="예: 관리비"></div>
+        <div class="field"><label>금액</label><input id="fa" type="number" inputmode="numeric" placeholder="400000"></div>
+      </div>
+      <div class="field" style="margin-top:9px"><label>카드 지정</label><select id="fc">
+        <option value="auto">자동 추천</option><option value="hyundai">현대카드 M</option><option value="hana">하나 MOVING LIFE</option><option value="woori">우리 Shopping+</option><option value="kb">KB T-economy</option>
+      </select></div>
+      <button class="primary full" onclick="addFixed()">+ 고정비 추가</button>
+    </div>
+    <div class="notice">고정비는 자주 입력하지 않으므로 이 탭에서 필요할 때만 관리합니다.</div>
+  </main>
+
+  <main id="historyPage" class="hidden">
+    <div class="section-title">결제 내역</div>
+    <div class="box history" id="history"></div>
+  </main>
+</div>
+
+<nav class="tabs">
+  <button class="tab active" onclick="tab('pay',this)"><span class="ico">💳</span>지금 결제</button>
+  <button class="tab" onclick="tab('status',this)"><span class="ico">📊</span>카드 현황</button>
+  <button class="tab" onclick="tab('fixed',this)"><span class="ico">⚙️</span>고정비</button>
+  <button class="tab" onclick="tab('history',this)"><span class="ico">🧾</span>내역</button>
+</nav>
+
+<script>
+const KEY="cardOptimizerV3";
+const initial={cards:{
+hyundai:{name:"현대카드 M",target:1000000,spend:771000},
+hana:{name:"하나 MOVING LIFE",target:700000,spend:300000},
+woori:{name:"우리 Shopping+",target:300000,spend:300000},
+kb:{name:"KB T-economy",target:300000,spend:200000}
+},fixed:[],history:[]};
+let s=JSON.parse(localStorage.getItem(KEY)||"null")||structuredClone(initial);
+const kw=[
+[["쿠팡","네이버쇼핑","11번가","온라인","배달의민족","요기요"],"online","온라인"],
+[["스타벅스","투썸","커피","카페","식당","레스토랑","맥도날드","치킨","버거"],"restaurant","외식/카페"],
+[["학원","과외","어학원","수학","영어"],"academy","학원"],
+[["병원","의원","약국","치과","안과","피부과"],"medical","병원"],
+[["관리비","아파트","전기","가스","수도"],"management","관리비"],
+[["skt","kt","lg u+","lg유플러스","통신"],"telecom","통신"],
+[["버스","지하철","택시","교통"],"transport","교통"],
+[["올리브영","다이소","백화점","마트","이마트","생활"],"shopping","쇼핑/생활"]
+];
+const labels={general:"일반",online:"온라인",restaurant:"외식/카페",academy:"학원",medical:"병원",management:"관리비",telecom:"통신",transport:"교통",shopping:"쇼핑/생활"};
+function won(n){return new Intl.NumberFormat("ko-KR").format(Math.round(n))+"원"}
+function save(){localStorage.setItem(KEY,JSON.stringify(s));render()}
+function infer(){
+ const v=(merchant.value||"").toLowerCase(); let m=null;
+ for(const x of kw) if(x[0].some(w=>v.includes(w.toLowerCase()))){m=x;break}
+ if(m){cat.value=m[1];hint.innerHTML='<div class="chips"><span class="chip">자동 추정: '+m[2]+'</span><button class="chip" onclick="cat.value=\'general\';recommend()">직접 변경</button></div>'}
+ else hint.innerHTML=v?'<div class="chips"><span class="chip">유형을 자동 판단하지 못했어요 → 직접 선택</span></div>':"";
+ recommend()
+}
+function recommend(){
+ const a=Number(amount.value||0),c=cat.value;if(!a){rec.innerHTML="";return}
+ const score=Object.keys(s.cards).map(k=>{
+   let benefit=0,why="기본 혜택 기준";
+   if(k==="hana"&&["academy","medical","management","telecom"].includes(c)){benefit=Math.min(10000,a*.10);why="LIFE 대상 카테고리 · 10% (1차 테스트 기준)"}
+   else if(k==="hyundai"&&["online","restaurant","shopping"].includes(c)){benefit=Math.min(10000,a*.05);why="M포인트 대상 카테고리 · 5% (1차 테스트 기준)"}
+   else if(k==="hyundai"){benefit=a*.015;why="기본 1.5% (1차 테스트 기준)"}
+   const rem=Math.max(0,s.cards[k].target-s.cards[k].spend);
+   return {k,benefit,score:benefit*100+(rem>0?Math.min(a,rem)/100:0),rem}
+ }).sort((x,y)=>y.score-x.score)[0],x=s.cards[score.k];
+ rec.innerHTML='<div class="rec"><div class="small">현재 추천</div><strong>'+x.name+'</strong><div class="small" style="margin-top:7px">결제유형: <b>'+labels[c]+'</b><br>예상 혜택: <b>'+won(score.benefit)+'</b><br>결제 후 실적: '+won(x.spend+a)+' / '+won(x.target)+'<br>남은 목표: '+won(Math.max(0,score.rem-a))+'</div><button class="primary full" onclick="pay(\''+score.k+'\','+a+')">이 카드로 결제했어</button></div>'
+}
+function pay(k,a){
+ const m=merchant.value.trim()||"미입력 가맹점";s.cards[k].spend+=a;s.history.push({card:k,amount:a,merchant:m,categoryLabel:labels[cat.value],time:new Date().toLocaleString("ko-KR")});save();
+ rec.innerHTML='<div class="rec"><b>결제 반영 완료 ✓</b><br>'+s.cards[k].name+'에 '+won(a)+'이 추가됐어요.</div>'
+}
+function render(){
+ cards.innerHTML=Object.entries(s.cards).map(([k,x])=>{let p=Math.min(100,x.spend/x.target*100);return '<div class="cardrow"><div class="row"><b>'+x.name+'</b><span class="small">'+won(x.spend)+' / '+won(x.target)+'</span></div><div class="bar"><div class="fill" style="width:'+p+'%"></div></div><div class="small">'+(x.spend>=x.target?"목표 달성":"목표까지 "+won(x.target-x.spend))+'</div></div>'}).join("");
+ fixedList.innerHTML=s.fixed.length?s.fixed.map((f,i)=>'<div class="fixed"><div><b>'+f.name+'</b><div class="small">'+won(f.amount)+' · '+(f.card==="auto"?"자동 추천":s.cards[f.card].name)+'</div></div><button class="danger" onclick="delFixed('+i+')">삭제</button></div>').join(""):'<div class="small">등록된 고정비가 없어요.</div>';
+ history.innerHTML=s.history.length?s.history.slice().reverse().map(h=>'<div><b>'+h.merchant+'</b> · '+won(h.amount)+' · '+s.cards[h.card].name+'<br><span class="small">'+h.categoryLabel+' · '+h.time+'</span></div>').join(""):'<div class="small" style="padding:15px 0">아직 결제 내역이 없어요.</div>';
+}
+function addFixed(){let n=fn.value.trim(),a=Number(fa.value);if(!n||!a){alert("이름과 금액을 입력해 주세요.");return}s.fixed.push({name:n,amount:a,card:fc.value});fn.value="";fa.value="";save()}
+function delFixed(i){s.fixed.splice(i,1);save()}
+function tab(t,el){["pay","status","fixed","history"].forEach(x=>document.getElementById(x+"Page").classList.toggle("hidden",x!==t));document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));el.classList.add("active");window.scrollTo(0,0)}
+render();
+</script>
+</body>
+</html>
