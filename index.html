@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="카드 최적화">
+<meta name="apple-mobile-web-app-title" content="CARDWISE">
 <meta name="theme-color" content="#f5f5f7">
-<title>카드 최적화</title>
+<title>CARDWISE</title>
 <style>
 :root{--bg:#f5f5f7;--text:#171719;--muted:#74767b;--line:#e8e8eb;--blue:#3478f6}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:14px}
-.wrap{max-width:680px;margin:auto;padding:14px 14px 88px}.top{padding:3px 3px 10px}h1{font-size:21px;line-height:1.2;margin:0;font-weight:750}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.wrap{max-width:680px;margin:auto;padding:14px 14px 92px}.top{padding:3px 3px 12px}.brand{display:flex;align-items:center;gap:9px}.logo{width:29px;height:29px;position:relative;flex:0 0 auto}.logo:before,.logo:after{content:"";position:absolute;border:2px solid #171719;border-radius:7px;width:19px;height:13px}.logo:before{left:0;top:2px;background:#fff}.logo:after{right:0;bottom:2px;background:#dfe3e8}.logo-check{position:absolute;right:3px;bottom:6px;width:10px;height:5px;border-left:2px solid #171719;border-bottom:2px solid #171719;transform:rotate(-45deg);z-index:2}.brand h1{font-size:20px;line-height:1.1;margin:0;font-weight:800;letter-spacing:-.5px}.brand-sub{font-size:9px;color:var(--muted);letter-spacing:.4px;margin-top:2px}.top>.sub{font-size:11px;color:var(--muted);margin-top:7px}
 .box{background:#fff;border-radius:17px;padding:14px;margin:8px 0;box-shadow:0 1px 7px #00000009}.paybox{padding:15px}.eyebrow{font-size:12px;color:var(--muted);margin-bottom:5px}.prompt{font-size:18px;font-weight:750;margin-bottom:12px}
-.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:11px;color:var(--muted)}input,select{width:100%;border:1px solid #dedfe3;border-radius:11px;padding:10px 11px;background:#fff;font-size:14px;outline:none}input:focus,select:focus{border-color:#aebfe9}
+.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:11px;color:var(--muted)}input,select{width:100%;border:1px solid #dedfe3;border-radius:11px;padding:10px 11px;background:#fff;font-size:16px;outline:none}input:focus,select:focus{border-color:#aebfe9}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .rec{background:#f1f5ff;border-radius:14px;padding:13px;margin-top:11px}.rec .title{font-size:11px;color:#64708a}.rec strong{font-size:18px}.rec .detail{font-size:11px;color:#62666e;line-height:1.55;margin-top:5px}.primary{width:100%;margin-top:9px;border:0;border-radius:11px;padding:10px;background:#171719;color:#fff;font-weight:700;font-size:13px}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.chip{border:0;background:#f0f1f3;color:#555;border-radius:99px;padding:6px 9px;font-size:11px}
@@ -21,13 +21,19 @@
 .cardrow{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.cardrow:last-child{border-bottom:0}.thumb{width:42px;height:28px;border-radius:6px;padding:5px;color:white;font-size:9px;font-weight:800;display:flex;align-items:flex-end;justify-content:flex-start;box-shadow:0 2px 4px #0002}.m{background:linear-gradient(135deg,#171719,#555)}.hana{background:linear-gradient(135deg,#2747a7,#7e9cff)}.woori{background:linear-gradient(135deg,#16856d,#69c7a8)}.kb{background:linear-gradient(135deg,#566b9e,#aebbd8)}.row{display:flex;justify-content:space-between;gap:8px;align-items:center}.name{font-weight:700;font-size:13px}.amount{font-size:11px;color:#555}.bar{height:6px;background:#ececef;border-radius:9px;overflow:hidden;margin:6px 0 4px}.fill{height:100%;background:#25262a;border-radius:9px}.small{font-size:10px;color:var(--muted)}
 .notice{font-size:10px;color:#94969b;line-height:1.45;margin:12px 3px}.hidden{display:none}
 .fixed{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.fixed:last-child{border-bottom:0}.danger{border:0;background:#fff0f0;color:#b33;border-radius:8px;padding:6px 8px;font-size:10px}.history div{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.history div:last-child{border:0}
-.bottom{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:9px;width:min(94%,420px);background:#ffffffd9;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid #fff;border-radius:18px;box-shadow:0 5px 25px #00000018;padding:4px;display:flex;gap:3px}.nav{flex:1;border:0;background:transparent;border-radius:14px;padding:8px 4px;color:#777;font-size:10px}.nav.active{background:#f0f1f4;color:#171719;font-weight:750}.nav .dot{display:block;font-size:16px;line-height:17px;margin-bottom:2px}
+.bottom{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:max(10px,env(safe-area-inset-bottom));width:min(92vw,340px);height:54px;background:rgba(255,255,255,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.8);border-radius:20px;box-shadow:0 7px 28px #00000018;padding:5px;display:flex;gap:3px}.nav{flex:1;border:0;background:transparent;border-radius:15px;padding:5px 4px;color:#8a8e96;font-size:9px;font-weight:600}.nav.active{background:#f0f1f4;color:#171719;font-weight:750}.nav .dot{display:block;font-size:15px;line-height:16px;margin-bottom:1px}
 @media(max-width:430px){.grid{grid-template-columns:1fr}.wrap{padding-left:12px;padding-right:12px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><h1>💳 카드 최적화</h1><div class="sub">결제할 때 가장 유리한 카드를 찾아줘</div></header>
+  <header class="top">
+  <div class="brand">
+    <div class="logo"><span class="logo-check"></span></div>
+    <div><h1>CARDWISE</h1><div class="brand-sub">SMART PAYMENT CHOICE</div></div>
+  </div>
+  <div class="sub">결제할 때 가장 유리한 카드를 찾아줘</div>
+</header>
 
   <section id="home">
     <div class="box paybox">
@@ -49,6 +55,7 @@
       <select id="month" class="month" onchange="render()"></select>
     </div>
     <div class="box" id="cards"></div>
+    
   </section>
 
   <section id="fixedPage" class="hidden">
@@ -75,36 +82,77 @@
 </nav>
 
 <script>
-const KEY="cardOptimizerV4";
+const KEY="cardOptimizerV41";
+const OLD="cardOptimizerV4";
+const OLD5="cardOptimizerV5";
+
 const initial={cards:{
-hyundai:{name:"현대카드 M",target:1000000,spend:771000,baseRate:.015,specialRate:.05,specialCap:10000},
-hana:{name:"하나 MOVING LIFE",target:700000,spend:300000,baseRate:0,specialRate:.10,specialCap:10000},
-woori:{name:"우리 Shopping+",target:300000,spend:300000,baseRate:0,specialRate:.10,specialCap:6000},
-kb:{name:"KB T-economy",target:300000,spend:200000,baseRate:0,specialRate:0,specialCap:0}
+  hyundai:{name:"현대카드 M",target:1000000,spend:771000,prevSpend:null},
+  hana:{name:"하나 MOVING LIFE",target:700000,spend:300000,prevSpend:null},
+  woori:{name:"우리 Shopping+",target:300000,spend:300000,prevSpend:null},
+  kb:{name:"KB T-economy",target:300000,spend:200000,prevSpend:null}
 },fixed:[],history:[],months:{}};
+
 let s=JSON.parse(localStorage.getItem(KEY)||"null");
-if(!s){s=structuredClone(initial);s.months={};}
-const ym=()=>{let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")};
-function ensureMonth(m){
- if(!s.months[m]) s.months[m]={};
- for(const k in initial.cards){
-   if(s.months[m][k]===undefined){
-     // Seed September 2026 with the confirmed initial state; later months start at 0.
-     s.months[m][k]=(m==="2026-09"?initial.cards[k].spend:0);
-   }
- }
+if(!s){
+  s=JSON.parse(localStorage.getItem(OLD)||"null");
 }
-function won(n){return new Intl.NumberFormat("ko-KR").format(Math.round(n))+"원"}
-function cardName(k){return s.cards[k].name}
+if(!s){
+  const v5=JSON.parse(localStorage.getItem(OLD5)||"null");
+  if(v5){
+    s={cards:{},fixed:v5.fixed||[],history:[],months:{}};
+    const base=initial.cards;
+    const vm=v5.months||{};
+    Object.keys(vm).forEach(m=>{
+      const mm=vm[m]||{};
+      s.months[m]={};
+      (mm.cards||[]).forEach(c=>{
+        const map={m:"hyundai",life:"hana",w:"woori",t:"kb"};
+        const id=map[c.id]||c.id;
+        if(base[id]) s.months[m][id]=Number(c.spent)||0;
+      });
+      s.months[m].history=(mm.history||[]).map(h=>({
+        month:m,card:h.cardId||h.card||"hyundai",amount:Number(h.amount)||0,
+        merchant:h.merchant||"미입력 가맹점",category:h.category||"general",
+        categoryLabel:h.categoryLabel||labels[h.category]||"일반",time:h.date||""
+      }));
+    });
+    s.cards=structuredClone(base);
+  }
+}
+if(!s) s=structuredClone(initial);
+if(!s.cards) s.cards=structuredClone(initial.cards);
+if(!s.fixed) s.fixed=[];
+if(!s.history) s.history=[];
+if(!s.months) s.months={};
+
+for(const k of Object.keys(initial.cards)){
+  if(!s.cards[k]) s.cards[k]=structuredClone(initial.cards[k]);
+  if(s.cards[k].prevSpend===undefined) s.cards[k].prevSpend=null;
+  if(s.cards[k].target===undefined) s.cards[k].target=initial.cards[k].target;
+}
+const ym=()=>{let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")};
+
+function ensureMonth(m){
+  if(!s.months[m]) s.months[m]={};
+  for(const k in s.cards){
+    if(s.months[m][k]===undefined){
+      s.months[m][k]=(m==="2026-09"?Number(s.cards[k].spend)||0:0);
+    }
+  }
+}
+function won(n){return new Intl.NumberFormat("ko-KR").format(Math.round(n||0))+"원"}
+function cardName(k){return s.cards[k]?.name||k}
 function save(){localStorage.setItem(KEY,JSON.stringify(s));render()}
 function months(){let out=[];for(let i=-11;i<=2;i++){let d=new Date();d.setDate(1);d.setMonth(d.getMonth()+i);out.push(d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"))}return out.reverse()}
 function monthLabel(m){let [y,mo]=m.split("-");return y+"년 "+Number(mo)+"월"}
 function setupMonths(){
- ensureMonth(ym());
- const opts=months().map(m=>'<option value="'+m+'">'+monthLabel(m)+'</option>').join("");
- month.innerHTML=opts;historyMonth.innerHTML=opts;
- month.value=ym();historyMonth.value=ym();
+  ensureMonth(ym());
+  const opts=months().map(m=>'<option value="'+m+'">'+monthLabel(m)+'</option>').join("");
+  month.innerHTML=opts; historyMonth.innerHTML=opts;
+  month.value=ym(); historyMonth.value=ym();
 }
+
 const kw=[
 [["쿠팡","네이버쇼핑","11번가","g마켓","옥션","ssg","컬리"],"online","온라인"],
 [["스타벅스","투썸","커피","카페","식당","레스토랑","맥도날드","치킨","버거"],"restaurant","외식/카페"],
@@ -112,77 +160,184 @@ const kw=[
 [["병원","의원","약국","치과","안과","피부과"],"medical","병원"],
 [["관리비","아파트","전기","가스","수도"],"management","관리비"],
 [["skt","kt","lg u+","lg유플러스","통신"],"telecom","통신"],
-[["버스","지하철","택시","교통"],"transport","교통"],
+[["버스","지하철","택시","교통","주유","주유소"],"transport","교통"],
 [["올리브영","다이소","백화점","마트","이마트","생활"],"shopping","쇼핑/생활"]
 ];
 const labels={general:"일반",online:"온라인",restaurant:"외식/카페",academy:"학원",medical:"병원",management:"관리비",telecom:"통신",transport:"교통",shopping:"쇼핑/생활"};
+
 function infer(){
- let v=(merchant.value||"").toLowerCase(),m=null;
- for(const x of kw)if(x[0].some(w=>v.includes(w.toLowerCase()))){m=x;break}
- if(m){cat.value=m[1];hint.innerHTML='<div class="chips"><span class="chip">자동 추정 · '+m[2]+'</span><button class="chip" onclick="cat.value=\'general\';recommend()">직접 변경</button></div>'}else hint.innerHTML=v?'<div class="chips"><span class="chip">유형을 직접 선택해 주세요</span></div>':"";
- recommend();
+  let v=(merchant.value||"").toLowerCase(),m=null;
+  for(const x of kw)if(x[0].some(w=>v.includes(w.toLowerCase()))){m=x;break}
+  if(m){
+    cat.value=m[1];
+    hint.innerHTML='<div class="chips"><span class="chip">자동 추정 · '+m[2]+'</span><button class="chip" onclick="cat.value=\'general\';recommend()">직접 변경</button></div>';
+  }else hint.innerHTML=v?'<div class="chips"><span class="chip">유형을 직접 선택해 주세요</span></div>':"";
+  recommend();
 }
-function benefit(k,a,c,spent){
- const x=s.cards[k];
- // Hyundai M: current official benefit is 5% on online shopping/restaurants/overseas,
- // monthly 10,000 M-point cap; after cap, remaining eligible spend gets 1.5%.
- if(k==="hyundai"){
-   const eligible=["online","restaurant"].includes(c);
-   if(eligible){
-     const used=Math.min(10000,Math.max(0,spent*0.05)); // approximate cap consumption from eligible spend tracked in this version
-     const room=Math.max(0,10000-used);
-     const special=Math.min(a*.05,room);
-     return {v:special+(a-special/.05)*.015,why:special>0?"5% 적립 한도까지 적용":"5% 한도 소진 → 1.5% 기본 적립"};
-   }
-   return {v:a*.015,why:"국내외 가맹점 기본 1.5% 적립"};
- }
- if(k==="hana" && ["academy","medical","management","telecom"].includes(c)){
-   const used=Math.min(10000,Math.max(0,spent*.10)),room=Math.max(0,10000-used),v=Math.min(a*.10,room);
-   return {v,why:v>0?"해당 LIFE 영역 10% · 월 1만원 한도":"해당 영역 한도 소진"};
- }
- if(k==="woori" && c==="shopping"){
-   const used=Math.min(6000,Math.max(0,spent*.10)),room=Math.max(0,6000-used),v=Math.min(a*.10,room);
-   return {v,why:v>0?"쇼핑 10% · 30~70만원 구간 월 6천원 한도":"쇼핑 할인 한도 소진"};
- }
- if(k==="kb" && c==="telecom") return {v:0,why:"SKT 자동납부·실적 조건형 혜택은 별도 설정 필요"};
- return {v:0,why:"현재 등록된 대상 혜택 없음"};
+
+/*
+  혜택 계산 원칙
+  - 당월 사용액(target)은 '실적 달성 관리'용으로만 사용.
+  - 전월실적(prevSpend)이 필요한 카드 혜택은 prevSpend가 없으면 해당 특화혜택을 적용하지 않음.
+  - 결제 1건의 예상 혜택을 직접 비교하고, 실적 목표는 동률일 때만 보조 기준으로 사용.
+*/
+function benefit(k,a,c,m){
+  const x=s.cards[k];
+  const h=(s.months[m]?.history||[]);
+  if(k==="hyundai"){
+    const base=a*0.015;
+    if(["online","restaurant"].includes(c)){
+      const used=h.filter(v=>v.card==="hyundai" && ["online","restaurant"].includes(v.category))
+        .reduce((sum,v)=>sum+Number(v.amount||0),0);
+      const usedCap=Math.min(10000,used*0.05);
+      const room=Math.max(0,10000-usedCap);
+      const special=Math.min(a*0.05,room);
+      return {
+        v:special+(a-special/0.05)*0.015,
+        why:special>0?"5% 특별적립 · 남은 월 한도 "+won(room):"5% 특별적립 한도 소진 · 기본 1.5%"
+      };
+    }
+    return {v:base,why:"기본 1.5% M포인트 적립"};
+  }
+
+  if(k==="hana"){
+    const life10=["medical","academy","management","telecom","transport","grocery"].includes(c);
+    const shopping10=["online","shopping"].includes(c);
+    if(life10 || shopping10){
+      const group=life10?"life":"shopping";
+      const eligibleCats=life10?["medical","academy","management","telecom","transport","grocery"]:["online","shopping"];
+      const used=h.filter(v=>v.card==="hana" && eligibleCats.includes(v.category))
+        .reduce((sum,v)=>sum+Number(v.amount||0),0);
+      const room=Math.max(0,10000-used*0.10);
+      const special=Math.min(a*0.10,room);
+      return {v:special,why:(group==="shopping"?"쇼핑 10%":"LIFE 영역 10%")+" · 남은 월 한도 "+won(room)};
+    }
+    return {v:0,why:"현재 결제유형에 등록된 MOVING LIFE 특화 혜택 없음"};
+  }
+
+  if(k==="woori"){
+    if(c==="shopping"){
+      return {v:a*0.10,why:"쇼핑 혜택 대상 · 10% 기준 예상"};
+    }
+    return {v:0,why:"현재 결제유형에 등록된 Shopping+ 특화 혜택 없음"};
+  }
+
+  if(k==="kb"){
+    if(c==="telecom"){
+      return {v:Math.min(a,17000),why:"SKT 통신요금 할인 · 최대 17,000원 기준"};
+    }
+    return {v:0,why:"현재 결제유형에 등록된 T-economy 특화 혜택 없음"};
+  }
+  return {v:0,why:"등록된 카드 혜택 정보 없음"};
 }
+
+function ranked(a,c,m){
+  ensureMonth(m);
+  return Object.keys(s.cards).map(k=>{
+    const b=benefit(k,a,c,m);
+    const rem=Math.max(0,s.cards[k].target-s.months[m][k]);
+    return {k,b,rem};
+  }).sort((u,v)=>v.b.v-u.b.v || u.rem-v.rem);
+}
+
 function recommend(){
- let a=Number(amount.value||0),c=cat.value;if(!a){rec.innerHTML="";return}
- const m=month.value||ym();ensureMonth(m);
- const rs=Object.keys(s.cards).map(k=>{
-   const b=benefit(k,a,c,s.months[m][k]);
-   const rem=Math.max(0,s.cards[k].target-s.months[m][k]);
-   return {k,b,rem,score:b.v*100+(rem>0?Math.min(a,rem)/100:0)}
- }).sort((x,y)=>y.score-x.score),r=rs[0],x=s.cards[r.k];
- rec.innerHTML='<div class="rec"><div class="title">자동 추천</div><strong>'+x.name+'</strong><div class="detail">'+labels[c]+' · 예상 혜택 <b>'+won(r.b.v)+'</b><br>'+r.b.why+'<br>결제 후 실적 '+won(s.months[m][r.k]+a)+' / '+won(x.target)+'</div><button class="primary" onclick="pay(\''+r.k+'\','+a+',\''+m+'\')">이 카드로 결제했어</button></div>';
+  let a=Number(amount.value||0),c=cat.value;
+  if(!a){rec.innerHTML="";return}
+  const m=month.value||ym();
+  const rs=ranked(a,c,m),r=rs[0],x=s.cards[r.k];
+  const targetNote=r.rem>0?" · 이번 달 목표까지 "+won(r.rem):" · 이번 달 목표 달성";
+  rec.innerHTML='<div class="rec"><div class="title">자동 추천</div><strong>'+x.name+'</strong><div class="detail">'+
+    labels[c]+' · 예상 혜택 <b>'+won(r.b.v)+'</b><br>'+r.b.why+
+    targetNote+
+    '</div><button class="primary" onclick="pay(\''+r.k+'\','+a+',\''+m+'\')">이 카드로 결제했어</button></div>';
 }
+
 function pay(k,a,m){
- ensureMonth(m);s.months[m][k]+=a;
- s.history.push({month:m,card:k,amount:a,merchant:merchant.value.trim()||"미입력 가맹점",categoryLabel:labels[cat.value],time:new Date().toLocaleString("ko-KR")});
- save();rec.innerHTML='<div class="rec"><b>결제 반영 완료 ✓</b><div class="detail">'+cardName(k)+'에 '+won(a)+'이 추가됐어요.</div></div>';
+  ensureMonth(m);
+  const c=cat.value||"general";
+  const merchantName=(merchant.value||"").trim()||"미입력 가맹점";
+  s.months[m][k]+=a;
+  s.history.push({month:m,card:k,amount:a,merchant:merchantName,category:c,categoryLabel:labels[c]||"일반",time:new Date().toLocaleString("ko-KR")});
+  if(!s.months[m].history) s.months[m].history=[];
+  s.months[m].history.push({card:k,amount:a,merchant:merchantName,category:c});
+  save();
+  merchant.value=""; amount.value="";
+  rec.innerHTML='<div class="rec"><b>결제 반영 완료 ✓</b><div class="detail">'+cardName(k)+'에 '+won(a)+'이 추가됐어요.</div></div>';
 }
+
 function render(){
- const m=month.value||ym();ensureMonth(m);
- cards.innerHTML=Object.entries(s.cards).map(([k,x])=>{
-   let spend=s.months[m][k],p=Math.min(100,spend/x.target*100);
-   return '<div class="cardrow"><div class="thumb '+({hyundai:"m",hana:"hana",woori:"woori",kb:"kb"}[k])+'">'+({hyundai:"M",hana:"LIFE",woori:"W+",kb:"T"}[k])+'</div><div><div class="row"><span class="name">'+x.name+'</span><span class="amount">'+won(spend)+' / '+won(x.target)+'</span></div><div class="bar"><div class="fill" style="width:'+p+'%"></div></div><div class="small">'+(spend>=x.target?"실적 목표 달성":"목표까지 "+won(x.target-spend))+'</div></div></div>'
- }).join("");
- fixedList.innerHTML=s.fixed.length?s.fixed.map((f,i)=>'<div class="fixed"><div><b>'+f.name+'</b><div class="small">'+won(f.amount)+' · '+(f.card==="auto"?"자동 추천":cardName(f.card))+'</div></div><button class="danger" onclick="delFixed('+i+')">삭제</button></div>').join(""):'<div class="small">등록된 고정비가 없어요.</div>';
- renderHistory();
+  const m=month.value||ym();ensureMonth(m);
+  cards.innerHTML=Object.entries(s.cards).map(([k,x])=>{
+    let spend=s.months[m][k],p=x.target?Math.min(100,spend/x.target*100):0;
+    return '<div class="cardrow"><div class="thumb '+({hyundai:"m",hana:"hana",woori:"woori",kb:"kb"}[k])+'">'+({hyundai:"M",hana:"LIFE",woori:"W+",kb:"T"}[k])+'</div><div>'+
+      '<div class="row"><span class="name">'+x.name+'</span><span class="amount">'+won(spend)+' / '+won(x.target)+'</span></div>'+
+      '<div class="bar"><div class="fill" style="width:'+p+'%"></div></div>'+
+      '<div class="small">'+(spend>=x.target?"실적 목표 달성":"목표까지 "+won(x.target-spend))+
+      '</div></div></div>';
+  }).join("");
+
+  renderFixed();
+  renderHistory();
 }
+
+function renderFixed(){
+  fixedList.innerHTML=s.fixed.length?s.fixed.map((f,i)=>{
+    const label=f.card==="auto" ? "자동 추천" : cardName(f.card);
+    const auto=f.card==="auto" ? fixedRecommend(f.name,f.amount) : null;
+    const cardText=auto ? auto.name+" 추천 · "+auto.why : label;
+    return '<div class="fixed"><div><b>'+f.name+'</b><div class="small">'+won(f.amount)+' · '+cardText+'</div></div><button class="danger" onclick="delFixed('+i+')">삭제</button></div>';
+  }).join(""):'<div class="small">등록된 고정비가 없어요.</div>';
+}
+
+function fixedRecommend(name,a){
+  const fakeMerchant=name||"";
+  const old=merchant.value, oldA=amount.value, oldC=cat.value;
+  const c=guessCategory(fakeMerchant)||"management";
+  const rs=ranked(a,c,month.value||ym());
+  merchant.value=old;amount.value=oldA;cat.value=oldC;
+  if(!rs.length) return null;
+  return {name:cardName(rs[0].k),why:rs[0].b.why};
+}
+
 function renderHistory(){
- const m=historyMonth.value||ym();
- const hs=s.history.filter(h=>h.month===m).slice().reverse();
- history.innerHTML=hs.length?hs.map(h=>'<div><b>'+h.merchant+'</b> · '+won(h.amount)+' · '+cardName(h.card)+'<br><span class="small">'+h.categoryLabel+' · '+h.time+'</span></div>').join(""):'<div class="small">이 달의 결제 내역이 없어요.</div>';
+  const m=historyMonth.value||ym();
+  const hs=s.history.filter(h=>h.month===m).slice().reverse();
+  history.innerHTML=hs.length?hs.map(h=>'<div><b>'+h.merchant+'</b> · '+won(h.amount)+' · '+cardName(h.card)+'<br><span class="small">'+(h.categoryLabel||labels[h.category]||"일반")+' · '+h.time+'</span></div>').join(""):'<div class="small">이 달의 결제 내역이 없어요.</div>';
 }
-function addFixed(){let n=fn.value.trim(),a=Number(fa.value);if(!n||!a){alert("이름과 금액을 입력해 주세요.");return}s.fixed.push({name:n,amount:a,card:fc.value});fn.value="";fa.value="";save()}
+
+function addFixed(){
+  let n=fn.value.trim(),a=Number(fa.value);
+  if(!n||!a){alert("이름과 금액을 입력해 주세요.");return}
+  s.fixed.push({name:n,amount:a,card:fc.value});
+  fn.value="";fa.value="";
+  save();
+}
 function delFixed(i){s.fixed.splice(i,1);save()}
+
 function go(id,el){
- ["home","fixedPage","historyPage"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));
- document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));el.classList.add("active");window.scrollTo(0,0)
+  ["home","fixedPage","historyPage"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+  el.classList.add("active");window.scrollTo(0,0)
 }
+
+// v4.1: keep the inferred payment type as the actual selected value.
+merchant.addEventListener("input",infer);
+amount.addEventListener("input",()=>{amount.value=amount.value.replace(/[^\d]/g,"");recommend()});
+cat.addEventListener("change",recommend);
+month.addEventListener("change",render);
+historyMonth.addEventListener("change",renderHistory);
+
+// iPhone: prevent focus zoom and release keyboard when tapping outside form controls.
+document.addEventListener("touchstart",e=>{
+  if(!e.target.closest("input,select,textarea,button")) document.activeElement?.blur();
+},{passive:true});
+document.addEventListener("click",e=>{
+  if(!e.target.closest("input,select,textarea,button")) document.activeElement?.blur();
+});
+
 setupMonths();render();
 </script>
 </body>
 </html>
+
+<script>/* CARDWISE v4.1 data is stored under cardOptimizerV41; v4/v5 are read-only migration sources. */</script>
